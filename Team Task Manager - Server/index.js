@@ -5,6 +5,7 @@ import connectDB from "./src/config/db.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 import authRouter from "./src/routes/authRoutes.js";
 import userRouter from "./src/routes/userRoutes.js";
+import taskRouter from "./src/routes/taskRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -20,8 +21,7 @@ app.get("/", (req, res) => {
 // route configurations
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
-
-
+app.use("/api/tasks", taskRouter);
 
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000;

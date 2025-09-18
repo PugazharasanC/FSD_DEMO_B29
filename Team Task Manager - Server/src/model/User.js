@@ -35,13 +35,17 @@ const userSchema = Schema(
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = bcrypt.hash(this.password, salt);
   }
   next();
 });
 
 userSchema.methods.comparePassword = async function (userPassword) {
-  return await bcrypt.compare(userPassword, this.password);
+  try {
+    return await bcrypt.compare(userPassword, this.password);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const User = model("User", userSchema);
