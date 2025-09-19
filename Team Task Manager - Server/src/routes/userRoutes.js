@@ -9,11 +9,14 @@ import {
 import authorizeRole from "../middleware/roleMiddleware.js";
 
 const userRouter = Router();
-
+userRouter.get(
+  "/",
+  protect,
+  authorizeRole("Admin", "Manager", "Viewer"),
+  getAllUsers
+);
 userRouter.use(protect, authorizeRole("Admin"));
-
 userRouter.post("/", createUser);
-userRouter.get("/", getAllUsers);
 userRouter.put("/:id/role", updateUserRole);
 userRouter.delete("/:id", deleteUser);
 

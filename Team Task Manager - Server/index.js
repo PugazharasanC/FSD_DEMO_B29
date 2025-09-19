@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import connectDB from "./src/config/db.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
@@ -9,6 +10,7 @@ import taskRouter from "./src/routes/taskRoutes.js";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(express.static("./public"));
 // debug helper => consoles req type, req url, req time
 app.use((req, res, next) => {
