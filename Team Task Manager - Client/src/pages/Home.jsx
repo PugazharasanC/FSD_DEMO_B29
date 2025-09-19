@@ -13,14 +13,16 @@ const Home = () => {
   // if (!user) {
   //   navigate("/login");
   // }
-  const { data, isLoading: isLoadingTasks } = useGetAllTasksQuery();
+  const { data, isLoading: isLoadingTasks, refetch } = useGetAllTasksQuery();
   // const dispatch = useDispatch();
   // const res = getAllTasks();
   if (isLoadingTasks) return <Loading></Loading>;
   return (
     <div className="mx-auto max-w-3xl">
       <h2>Tasks</h2>
-      {(user.role == ROLES.MANAGER || user.role == ROLES.ADMIN) && <CreateTask />}
+      {(user.role == ROLES.MANAGER || user.role == ROLES.ADMIN) && (
+        <CreateTask refetch={refetch} />
+      )}
       <table className=" border-2">
         <thead>
           <tr>

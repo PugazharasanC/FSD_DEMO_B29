@@ -6,7 +6,7 @@ import {
 import Loading from "../components/Loading";
 import { ROLES } from "../constants/roles";
 
-const CreateTask = () => {
+const CreateTask = ({ refetch }) => {
   const defaultState = {
     title: "",
     description: "",
@@ -30,9 +30,9 @@ const CreateTask = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await createTask(data).unwrap();
+    await createTask(data).unwrap();
     setData({ ...defaultState });
-    console.log(res);
+    refetch();
   };
   if (isLoading) <Loading />;
   return (
